@@ -1,0 +1,76 @@
+import csv
+
+def load_csv(filepath):
+    data = []
+    with open(filepath, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            clean_row = {k.strip(): v for k, v in row.items()}
+            data.append(clean_row)
+    return data
+
+
+#  Marvel dataset
+marvel = load_csv("marvel_characters_dataset.csv")  
+
+# 1. Print the first 2 rows
+print("First 2 rows:")
+print(marvel[:2])
+
+# 2. Print the first row
+print("\nFirst row:")
+print(marvel[0])
+
+# 3. Print rows 10–19
+print("\nRows 10–19:")
+print(marvel[10:20])
+
+# 4. Print column names
+print("\nColumn names:")
+print(marvel[0].keys())
+
+# 5. Print first 10 values of a column (Role)
+print("\nFirst 10 Roles:")
+for row in marvel[:10]:
+    print(row["Role"])
+
+# 6. Print first 10 rows of three columns: Character, Role, Power Level
+print("\nFirst 10 rows of Character, Role, Power Level:")
+for row in marvel[:10]:
+    print(row["Character"], row["Role"], row["Power Level"])
+
+
+# Three Questions
+
+# Question 1: Count of characters by Role
+role_counts = {}
+for row in marvel:
+    r = row["Role"]
+    if r in role_counts:
+        role_counts[r] += 1
+    else:
+        role_counts[r] = 1
+
+print("\nCount of characters by Role:")
+for r, count in role_counts.items():
+    print(r, count)
+
+
+# Question 2: Count of characters by Power Level
+power_counts = {}
+for row in marvel:
+    p = row["Power Level"]
+    if p in power_counts:
+        power_counts[p] += 1
+    else:
+        power_counts[p] = 1
+
+print("\nCount of characters by Power Level:")
+for p, count in power_counts.items():
+    print(p, count)
+
+
+# Question 3: First 10 characters with Character name, Role, and Power Level
+print("\nFirst 10 characters with Character, Role, Power Level:")
+for row in marvel[:10]:
+    print(row["Character"], row["Role"], row["Power Level"])
